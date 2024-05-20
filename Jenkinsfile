@@ -6,9 +6,9 @@ pipeline {
    //    gitParameter branchFilter: 'origin./(.)', defaultValue: 'development', name: 'BRANCH', type: 'PT_BRANCH',description: 'Select the branch to Build from the Dropdown List'
    //    string(name: 'REBUILD_IMAGE_TAG', defaultValue: '', description: 'Enter the image tag to check in the database')
    //  }
-    parameters {
-gitParameter ( branch: 'develop', branchFilter: 'develop', defaultValue: '', description: 'TAG_VERSION', name: 'TAG_VERSION', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'DESCENDING', tagFilter: 'develop-*', type: 'PT_TAG', listSize: "0" )
-}
+ parameters {
+    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+  }
     stages {
         stage('Example') {
             steps {
