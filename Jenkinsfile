@@ -24,52 +24,34 @@
 
 
 pipeline {
-    agent any
-
+    agent any 
     parameters {
         choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development', 'Release'], description: 'Select the type of branch to build')
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
     }
-
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    def branch = ''
-                    switch(params.BUILD_TYPE) {
-                        case 'Feature':
-                            branch = 'feature-branch-name'
-                            break
-                        case 'Development':
-                            branch = 'development'
-                            break
-                        case 'Release':
-                            branch = 'release-branch-name'
-                            break
-                        default:
-                            branch = 'main'
-                            break
-                    }
-                    echo "Selected BUILD_TYPE: ${params.BUILD_TYPE}"
-                    echo "Branch to checkout: ${branch}"
-                    // Simulating Git checkout, replace with actual Git checkout if needed
-                    sh "echo Checking out branch: ${branch}"
+                    def selectedBranch = params.BUILD_TYPE == 'Feature' ? 'origin/feature/*' :
+                                        params.BUILD_TYPE == 'Development' ? 'origin/develop/*' :
+                                        'origin/release/*'
+                    
+                    checkout([
+                        $class: 'GitSCM', 
+                        branches: [[name: selectedBranch]],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[url: 'https://your-repo-url.git']]
+                    ])
                 }
             }
         }
-
         stage('Build') {
             steps {
-                echo "Building for branch based on BUILD_TYPE: ${params.BUILD_TYPE}"
+                echo "Building branch: ${params.BRANCH}"
                 // Add your build steps here
-                sh 'echo Building...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploying build for BUILD_TYPE: ${params.BUILD_TYPE}"
-                // Add your deployment steps here
-                sh 'echo Deploying...'
             }
         }
     }
