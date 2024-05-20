@@ -12,6 +12,7 @@ pipeline {
                 echo "Choice: ${params.BUILD_TYPE}"
                 sh "echo Choice: ${params.BUILD_TYPE}"
                 sh 'echo Choice: $BUILD_TYPE'
+                echo "Choice: ${params.BRANCH}"
             }
         }
     }
