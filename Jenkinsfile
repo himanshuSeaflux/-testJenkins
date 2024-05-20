@@ -7,7 +7,7 @@ pipeline {
    //    string(name: 'REBUILD_IMAGE_TAG', defaultValue: '', description: 'Enter the image tag to check in the database')
    //  }
  parameters {
-    choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development','Release'], description: 'Select the type of branch to build')
+    choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development','Release','main'], description: 'Select the type of branch to build')
     gitParameter branchFilter: 'origin/(${params.BRANCH}.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
   }
     stages {
