@@ -27,7 +27,8 @@ pipeline {
   agent any
   parameters {
     choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development','Release','main'], description: 'Select the type of branch to build')
-    gitParameter branchFilter: 'origin.*/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+    // gitParameter branchFilter: 'origin.*/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+    gitParameter branchFilter: 'origin/Feature/.*', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
   }
   stages {
     stage('Example') {
