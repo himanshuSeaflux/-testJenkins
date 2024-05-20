@@ -59,7 +59,7 @@ pipeline {
                      defaultValue: 'main', 
                      branchFilter: 'origin/.*', 
                      selectedValue: 'DEFAULT', 
-                     useRepository: 'https://github.com/your-repo.git')
+                     useRepository: 'https://github.com/himanshuSeaflux/testJenkins.git')
     }
 
     stages {
@@ -72,7 +72,7 @@ pipeline {
                     // Checkout the selected branch
                     checkout([$class: 'GitSCM',
                               branches: [[name: "*/${selectedBranch}"]],
-                              userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]])
+                              userRemoteConfigs: [[url: 'https://github.com/himanshuSeaflux/testJenkins.git']]])
                 }
             }
         }
