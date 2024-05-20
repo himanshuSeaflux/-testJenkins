@@ -1,18 +1,21 @@
 pipeline {
     agent any
-   parameters { 
-      choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development','Release'], description: 'Select the type of branch to build')
-     // string(name: 'SELECTED_BRANCH', defaultValue: '', description: 'Enter the feature branch name or give "development" if you want to promote Image to higher Environments ') 
-      gitParameter branchFilter: 'origin./(.)', defaultValue: 'development', name: 'BRANCH', type: 'PT_BRANCH',description: 'Select the branch to Build from the Dropdown List'
-      string(name: 'REBUILD_IMAGE_TAG', defaultValue: '', description: 'Enter the image tag to check in the database')
-    }
+   // parameters { 
+   //    choice(name: 'BUILD_TYPE', choices: ['Feature', 'Development','Release'], description: 'Select the type of branch to build')
+   //   // string(name: 'SELECTED_BRANCH', defaultValue: '', description: 'Enter the feature branch name or give "development" if you want to promote Image to higher Environments ') 
+   //    gitParameter branchFilter: 'origin./(.)', defaultValue: 'development', name: 'BRANCH', type: 'PT_BRANCH',description: 'Select the branch to Build from the Dropdown List'
+   //    string(name: 'REBUILD_IMAGE_TAG', defaultValue: '', description: 'Enter the image tag to check in the database')
+   //  }
+    parameters {
+gitParameter ( branch: 'develop', branchFilter: 'develop', defaultValue: '', description: 'TAG_VERSION', name: 'TAG_VERSION', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'DESCENDING', tagFilter: 'develop-*', type: 'PT_TAG', listSize: "0" )
+}
     stages {
         stage('Example') {
             steps {
-                echo "Choice: ${params.BUILD_TYPE}"
-                sh "echo Choice: ${params.BUILD_TYPE}"
-                sh 'echo Choice: $BUILD_TYPE'
-                echo "Choice Branch: ${params.BRANCH}"
+                echo "Choice: ${params.TAG_VERSION}"
+                sh "echo Choice: ${params.TAG_VERSION}"
+                sh 'echo Choice: $TAG_VERSION'
+                echo "Choice Branch: ${params.TAG_VERSION}"
             }
         }
     }
