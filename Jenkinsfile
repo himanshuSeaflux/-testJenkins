@@ -12,10 +12,10 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo "Choice: ${params.TAG_VERSION}"
-                sh "echo Choice: ${params.TAG_VERSION}"
-                sh 'echo Choice: $TAG_VERSION'
-                echo "Choice Branch: ${params.TAG_VERSION}"
+                echo "Choice: ${params.BRANCH}"
+                sh "echo Choice: ${params.BRANCH}"
+                sh 'echo Choice: $BRANCH'
+                echo "Choice Branch: ${params.BRANCH}"
             }
         }
     }
